@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import Chat from "@/views/Chat.vue";
 import List from "@/views/List.vue";
-import Plans from "@/views/Plans.vue";
+import Tasks from "@/views/Tasks.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,22 +10,26 @@ const router = createRouter({
         {
             path: "/",
             name: 'home',
-            component: HomeView
+            component: HomeView,
         },
         {
-            path: "/plans",
-            name: 'plans',
-            component: Plans
+            path: "/tasks",
+            name: 'tasks',
+            component: Tasks,
+            props: route => ({
+                user_name: route.query.user_name,
+                user_id: route.query.user_id,
+            }) // Sharing props by router
         },
         {
             path: "/list",
             name: 'list',
-            component: List
+            component: List,
         },
         {
             path: "/chat",
             name: 'chat',
-            component: Chat
+            component: Chat,
         }
     ]
 })
