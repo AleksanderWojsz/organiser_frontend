@@ -1,57 +1,85 @@
 <script setup>
 import Task from "@/components/Task.vue";
-import { onMounted, ref, watch, watchEffect } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import AddPlanPopUp from "@/components/AddPlanPopUp.vue";
+import axios from "axios";
 
 const props = defineProps({
     user_id: Number,
-    tasks_data: Array,
 })
 
 const show_add_task_popup = ref(false)
 const family_members = ref([])
 const whose_tasks = ref("")
-const filtered_tasks = ref([])
+const displayed_tasks = ref([])
+const tasks_data = ref([]);
 
-function addTask(description, for_whom, author, id) {
-    tasks.value.push({description: description, for_whom: for_whom, author: author, id: id});
+function addTask(for_whom, from_whom, description, deadline) {
+
+    const new_task = {
+        for_whom: for_whom,
+        from_whom: from_whom,
+        description: description,
+        deadline: deadline
+    }
+
+    axios.post("http://localhost:8000/add_task", new_task).then(() => {
+        return refreshData()
+
+        // Updates data locally, without fetching it again.
+        // tasks_data.value.find(item => {return item.name === whose_tasks.value}).tasks.push(response.data)
+    })
+
     closeAddTaskPopUp();
+}
+
+function deleteTask(task_id) {
+    console.log(task_id)
+    axios.delete("http://localhost:8000/delete_task/" + task_id).then(() => {
+        return refreshData()
+    })
 }
 
 function closeAddTaskPopUp() {
     show_add_task_popup.value = false;
 }
 
-function deleteTask(id) {
-  tasks.value = tasks.value.filter(task => task.id !== id);
-}
-
-watch([props.tasks_data, whose_tasks], () => {
-    filtered_tasks.value = props.tasks_data.find(item => {return item.name === whose_tasks.value}).tasks
+// Update tasks list on a change
+watch([tasks_data, whose_tasks], () => {
+    const member = tasks_data.value.find(item => {return item.user_id === whose_tasks.value})
+    if (member) {
+        displayed_tasks.value = member.tasks;
+    } else {
+        displayed_tasks.value = []
+    }
 }, {deep: true});
 
+// Runs at the start
+onMounted(async () => {
+    await refreshData();
 
-// After reading data
-watchEffect(() => {
-
-    // console.log(props.tasks_data)
-
-    if (props.tasks_data !== undefined) {
         // Update family members list
-        var names = []
-        for (const family_member of props.tasks_data) {
-            names.push(family_member.name);
+        for (const family_member of tasks_data.value) {
+            family_members.value.push({
+                "user_id": family_member.user_id,
+                "name": family_member.name,
+            });
         }
-        family_members.value = names
 
         // Set default value on family members list
-        whose_tasks.value = props.tasks_data.find(item => {return item.user_id === props.user_id}).name
-    }
+        whose_tasks.value = tasks_data.value.find(item => {return item.user_id === props.user_id}).user_id
+
 })
 
+async function refreshData() {
+    try {
+        const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + props.user_id)
+        tasks_data.value = response.data
 
-
-
+    } catch (error) {
+        console.log("Error fetching full data", error)
+    }
+}
 
 
 </script>
@@ -63,10 +91,10 @@ watchEffect(() => {
 
     <label for="family-members">Whose tasks:</label>
     <select v-model="whose_tasks" id="family-members">
-        <option v-for="family_member in family_members" v-bind:value="family_member">{{family_member}}</option>
+        <option v-for="family_member in family_members" v-bind:value="family_member.user_id">{{family_member.user_id === user_id ? "Yours" : family_member.name}}</option>
     </select>
 
-    <div v-for="task in filtered_tasks">
-        <Task v-bind:task="task"  :key="task.id" v-bind:deleteTaskFunction="deleteTask"></Task>
+    <div v-for="task in displayed_tasks">
+        <Task v-bind:user_id="user_id" v-bind:task="task" v-bind:deleteTaskFunction="deleteTask"></Task>
     </div>
 </template>

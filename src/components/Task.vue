@@ -1,8 +1,9 @@
 <script setup>
 
-defineProps({
-  task: Object,
-  deleteTaskFunction: Function
+const props = defineProps({
+    task: Object,
+    user_id: Number,
+    deleteTaskFunction: Function,
 })
 
 </script>
@@ -12,7 +13,7 @@ defineProps({
         {{ task.description }} <br>
         {{ task.for_whom }} <br>
         {{ task.from_whom }} <br>
-        {{ task.id }} <br>
-      <button v-on:click="deleteTaskFunction(task.id)" class="bg-blue-500 hover:bg-blue-700 text-white">Done</button> <br>
+        id-> {{ task.task_id }} <br>
+        <button v-if="task.for_whom == props.user_id" v-on:click="deleteTaskFunction(task.task_id)" class="bg-blue-500 hover:bg-blue-700 text-white">Done</button> <br>
     </div>
 </template>

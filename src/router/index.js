@@ -17,7 +17,6 @@ const router = createRouter({
             name: 'tasks',
             component: Tasks,
             props: route => ({
-                user_name: route.query.user_name,
                 user_id: route.query.user_id,
             }) // Sharing props by router
         },
