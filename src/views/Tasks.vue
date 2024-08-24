@@ -1,32 +1,17 @@
 <script setup>
 import Task from "@/components/Task.vue";
-import {ref, watch} from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import AddPlanPopUp from "@/components/AddPlanPopUp.vue";
 
 const props = defineProps({
-    user_name: String,
     user_id: Number,
+    tasks_data: Array,
 })
 
 const show_add_task_popup = ref(false)
-const family_members = ref(["Ania", "Tomek", "Alek", "Czarek", "Iza"])
-const whose_tasks = ref(props.user_name)
+const family_members = ref([])
+const whose_tasks = ref("")
 const filtered_tasks = ref([])
-
-const tasks = ref([
-  {
-    description: "to this and that",
-    for_whom: "Alek",
-    author: "Ania",
-    id: "1",
-  },
-  {
-    description: "do nothing",
-    for_whom: "Czarek",
-    author: "Tomek",
-    id: "2",
-  },
-]);
 
 function addTask(description, for_whom, author, id) {
     tasks.value.push({description: description, for_whom: for_whom, author: author, id: id});
@@ -41,9 +26,32 @@ function deleteTask(id) {
   tasks.value = tasks.value.filter(task => task.id !== id);
 }
 
-watch([tasks, whose_tasks], () => {
-    filtered_tasks.value = tasks.value.filter(task => { return task.for_whom === whose_tasks.value })
-}, {immediate: true, deep: true});
+watch([props.tasks_data, whose_tasks], () => {
+    filtered_tasks.value = props.tasks_data.find(item => {return item.name === whose_tasks.value}).tasks
+}, {deep: true});
+
+
+// After reading data
+watchEffect(() => {
+
+    // console.log(props.tasks_data)
+
+    if (props.tasks_data !== undefined) {
+        // Update family members list
+        var names = []
+        for (const family_member of props.tasks_data) {
+            names.push(family_member.name);
+        }
+        family_members.value = names
+
+        // Set default value on family members list
+        whose_tasks.value = props.tasks_data.find(item => {return item.user_id === props.user_id}).name
+    }
+})
+
+
+
+
 
 
 </script>
@@ -59,6 +67,6 @@ watch([tasks, whose_tasks], () => {
     </select>
 
     <div v-for="task in filtered_tasks">
-        <Task v-bind:task="task" v-bind:deleteTaskFunction="deleteTask"></Task>
+        <Task v-bind:task="task"  :key="task.id" v-bind:deleteTaskFunction="deleteTask"></Task>
     </div>
 </template>
