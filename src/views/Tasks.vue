@@ -79,7 +79,7 @@ async function refreshData() {
 <template>
 
     <button class="border-4 border-emerald-700" v-on:click="show_add_task_popup = true">Add task</button>
-    <AddPlanPopUp v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
+    <AddPlanPopUp v-bind:family_members="family_members" v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
 
     <label for="family-members">Whose tasks:</label>
     <select v-model="whose_tasks" id="family-members">
