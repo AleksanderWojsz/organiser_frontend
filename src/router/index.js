@@ -1,12 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
 import Chat from "@/views/Chat.vue";
 import List from "@/views/List.vue";
 import Tasks from "@/views/Tasks.vue";
+import Home from "@/components/Home.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
+       {
+            path: "/",
+            name: 'home',
+            component: Home,
+        },
         {
             path: "/tasks",
             name: 'tasks',
