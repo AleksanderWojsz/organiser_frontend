@@ -5,7 +5,7 @@ import AddPlanPopUp from "@/components/AddPlanPopUp.vue";
 import axios from "axios";
 
 const props = defineProps({
-    user_id: Number,
+    user_id: String,
 })
 
 const show_add_task_popup = ref(false)
@@ -25,9 +25,6 @@ function addTask(for_whom, from_whom, description, deadline) {
 
     axios.post("http://localhost:8000/add_task", new_task).then(() => {
         return refreshData()
-
-        // Updates data locally, without fetching it again.
-        // tasks_data.value.find(item => {return item.name === whose_tasks.value}).tasks.push(response.data)
     })
 
     closeAddTaskPopUp();
@@ -67,18 +64,13 @@ onMounted(async () => {
         }
 
         // Set default value on family members list
-        whose_tasks.value = tasks_data.value.find(item => {return item.user_id === props.user_id}).user_id
+        whose_tasks.value = props.user_id
 
 })
 
 async function refreshData() {
-    try {
-        const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + props.user_id)
-        tasks_data.value = response.data
-
-    } catch (error) {
-        console.log("Error fetching full data", error)
-    }
+    const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + props.user_id)
+    tasks_data.value = response.data
 }
 
 
@@ -87,7 +79,7 @@ async function refreshData() {
 <template>
 
     <button class="border-4 border-emerald-700" v-on:click="show_add_task_popup = true">Add task</button>
-    <AddPlanPopUp v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
+    <AddPlanPopUp v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
 
     <label for="family-members">Whose tasks:</label>
     <select v-model="whose_tasks" id="family-members">

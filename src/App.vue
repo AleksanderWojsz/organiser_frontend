@@ -17,8 +17,6 @@ const logOut = () => {
   logout({ logoutParams: { returnTo: window.location.origin } });
 }
 
-const user_id = 1;
-
 </script>
 
 <template>
@@ -27,9 +25,8 @@ const user_id = 1;
 
     <div v-if="isAuthenticated && !isLoading">
         <p>Unikalne id: {{user.sub}}</p>
+        <NavigationBar></NavigationBar>
+        <RouterView v-bind:user_id="user.sub"></RouterView>
     </div>
 
-
-    <NavigationBar></NavigationBar>
-    <RouterView v-bind:user_id="user_id"></RouterView>
 </template>

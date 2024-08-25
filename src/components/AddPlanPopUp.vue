@@ -4,6 +4,7 @@
     defineProps({
         addTask: Function,
         closeAddTaskPopUp: Function,
+        user_id: String,
     })
 
     const description = ref("")
@@ -22,7 +23,7 @@
           <input v-model="for_whom" type="text" id="for-whom"><br>
         </form>
 
-        <button v-on:click="addTask(for_whom, 1, description, `wczoraj`)">Add</button><br>
+        <button v-on:click="addTask(for_whom, user_id, description, `wczoraj`)">Add</button><br>
         <button v-on:click="closeAddTaskPopUp">Close</button>
       </div>
     </div>
