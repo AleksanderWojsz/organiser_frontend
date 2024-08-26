@@ -24,18 +24,18 @@ const logOut = () => {
 
 watchEffect(async () => {
     if (isAuthenticated.value && !isLoading.value) {
-        const response = await axios.get("http://localhost:8000/does_user_have_family/" + user.value.sub)
+        const response = await axios.get("https://organiser-backend.onrender.com/does_user_have_family/" + user.value.sub)
         hasFamily.value = response.data;
 
         if (response.data === false) {
-            const response = await axios.get("http://localhost:8000/get_invitations/" + user.value.email)
+            const response = await axios.get("https://organiser-backend.onrender.com/get_invitations/" + user.value.email)
             invitations.value = response.data
         }
     }
 });
 
 async function create_new_family_and_add_user_to_it(user_id, user_name, user_email) {
-    await axios.post("http://localhost:8000/create_new_family_and_add_user_to_it", {
+    await axios.post("https://organiser-backend.onrender.com/create_new_family_and_add_user_to_it", {
         "user_id": user_id,
         "name": user_name,
         "email": user_email,
@@ -45,7 +45,7 @@ async function create_new_family_and_add_user_to_it(user_id, user_name, user_ema
 }
 
 async function accept_invitation(user_id, invitation, user_name, user_email) {
-    await axios.post("http://localhost:8000/add_user_to_existing_family", {
+    await axios.post("https://organiser-backend.onrender.com/add_user_to_existing_family", {
         "user_id": user_id,
         "family_id": invitation,
         "name": user_name,
