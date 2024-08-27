@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-vue';
 import {ref, watchEffect} from 'vue'
 import NavigationBar from "@/components/NavigationBar.vue";
 import axios from "axios";
+import Footer from "@/components/Footer.vue";
 
 const auth0 = useAuth0();
 const { loginWithRedirect, logout } = useAuth0();
@@ -65,10 +66,12 @@ async function accept_invitation(user_id, invitation, user_name, user_email) {
 </script>
 
 <template>
-    <div v-if="show_spinner" class="spinner"></div>
+<div class="flex flex-col h-screen justify-between">
 
-    <button v-if="!isAuthenticated" @click="login">Log in</button>
-    <div v-else>
+    <div v-if="show_spinner || isLoading" class="spinner"></div>
+
+    <button v-if="!isAuthenticated && !isLoading" @click="login">Log in</button>
+    <div v-else-if="!isLoading">
         <div v-if="hasFamily">
             <NavigationBar v-bind:user_id="user.sub" v-bind:logOut="logOut"></NavigationBar>
             <RouterView v-bind:user_id="user.sub"></RouterView> <!-- RouterView is where new page is injected -->
@@ -80,5 +83,7 @@ async function accept_invitation(user_id, invitation, user_name, user_email) {
             </div>
         </div>
     </div>
+    <Footer class="mt-24 mb-1"></Footer>
 
+</div>
 </template>

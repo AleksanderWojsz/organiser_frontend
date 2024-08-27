@@ -22,36 +22,40 @@ async function addInvitation() {
 </script>
 
 <template>
-    <div class="popup">
-      <div class="popup-inner">
-        <form>
-            <label for="email">This person's email:</label>
-            <input v-model="email" type="email" id="email"><br>
-            <button v-on:click.prevent="addInvitation">Send</button><br>
-            <button v-on:click.prevent="closeInviteToFamilyPopUp">Close</button>
-        </form>
-      </div>
+<div v-on:click.self="closeInviteToFamilyPopUp" class="popup">
+    <div class="popup-inner">
+        <input class="mb-6 border rounded-md w-full" v-model="email" placeholder="This person's email" type="email" id="email"><br>
+
+        <div class="flex justify-between">
+            <button class="button-shadow bg-amber-100 hover:bg-amber-200" v-on:click.prevent="closeInviteToFamilyPopUp">Close</button>
+            <button class="button-shadow bg-green-300 hover:bg-green-400" v-on:click.prevent="addInvitation">Send</button>
+        </div>
     </div>
+</div>
 </template>
 
 <style scoped>
+
 .popup {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 99;
     background-color: rgba(0, 0, 0, 0.2);
 
     display: flex;
     align-items: center;
     justify-content: center;
-
-    .popup-inner {
-        background: #FFFF;
-        padding: 32px;
-    }
-
 }
+
+.popup-inner {
+    background: #FFFF;
+    padding: 32px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 50%;
+}
+
 </style>

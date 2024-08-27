@@ -1,8 +1,9 @@
 <script setup>
 import Task from "@/components/Task.vue";
 import { onMounted, ref, watch } from 'vue';
-import AddPlanPopUp from "@/components/AddPlanPopUp.vue";
+import AddPlanPopUp from "@/components/AddTaskPopUp.vue";
 import axios from "axios";
+import Footer from "@/components/Footer.vue";
 
 const props = defineProps({
     user_id: String,
@@ -77,26 +78,35 @@ async function refreshData() {
     const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + props.user_id)
     tasks_data.value = response.data
     show_spinner.value = false;
+    console.log(response.data)
 }
 
 
 </script>
 
 <template>
+<div v-if="show_spinner" class="spinner"></div>
+<div v-else class=" mx-auto mt-12
+    sm:w-[90%]
+    md:w-[90%]
+    lg:w-[80%]
+    xl:w-[70%]
+    2xl:w-[60%]">
 
-    <div v-if="show_spinner" class="spinner"></div>
-    <div v-else>
-        <button class="border-4 border-emerald-700" v-on:click="show_add_task_popup = true">Add task</button>
-        <AddPlanPopUp v-bind:family_members="family_members" v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
+    <button class="button-shadow bg-green-200 hover:bg-green-400" v-on:click="show_add_task_popup = true">Add task</button>
+    <AddPlanPopUp v-bind:family_members="family_members" v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
 
-        <label for="family-members">Whose tasks:</label>
-        <select v-model="whose_tasks" id="family-members">
+    <div class="flex space-x-2 items-center my-3">
+        <label for="family-members" class="" >Whose tasks:</label>
+        <select v-model="whose_tasks" id="family-members" class="border rounded p-1">
             <option v-for="family_member in family_members" v-bind:value="family_member.user_id">{{family_member.user_id === user_id ? "Yours" : family_member.name}}</option>
         </select>
+    </div>
 
-        <div v-for="task in displayed_tasks">
+    <div class="space-y-3 mt-6">
+        <div v-for="task in displayed_tasks" >
             <Task v-bind:user_id="user_id" v-bind:task="task" v-bind:deleteTaskFunction="deleteTask"></Task>
         </div>
     </div>
-
+</div>
 </template>

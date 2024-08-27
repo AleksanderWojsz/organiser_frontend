@@ -9,11 +9,16 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="task border-4 border-sky-500">
-        {{ task.description }} <br>
-        {{ task.for_whom }} <br>
-        {{ task.from_whom }} <br>
-        id-> {{ task.task_id }} <br>
-        <button v-if="task.for_whom == props.user_id" v-on:click="deleteTaskFunction(task.task_id)" class="bg-blue-500 hover:bg-blue-700 text-white">Done</button> <br>
+
+
+<div class="card">
+    <div class="container space-y-2">
+        <p> {{task.description}} </p>
+<!--        <p> Deadline: {{ task.deadline }} </p>-->
+        <hr>
+        <p> From: {{ task.from_whom_name }} </p>
+        <button v-if="task.for_whom == props.user_id" v-on:click="deleteTaskFunction(task.task_id)" class="button-shadow bg-green-200 hover:bg-green-400">Done</button> <br>
     </div>
+</div>
+
 </template>
