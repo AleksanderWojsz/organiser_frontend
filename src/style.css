@@ -1,3 +1,121 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*---------------------*/
+
+body {
+    background-image: url("src/assets/background.svg");
+    background-size: 170%;
+    background-position: 0 80%;
+    background-repeat: no-repeat;
+}
+
+
+/*-------- Hamburger menu -------------*/
+
+.hamburger {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    transition: all 0.25s;
+    position: relative
+}
+
+.hamburger-bottom, .hamburger-middle, .hamburger-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background: black;
+    transform: rotate(0);
+    transition: all 0.5s;
+}
+
+.hamburger-middle {
+    transform: translateY(7px);
+}
+.hamburger-bottom {
+    transform: translateY(14px);
+}
+
+.open {
+    transform: rotate(90deg);
+    transform: translateY(0px);
+}
+
+.open .hamburger-top {
+    transform: rotate(45deg) translateY(6px) translate(6px);
+}
+
+.open .hamburger-middle {
+    display: none;
+}
+
+.open .hamburger-bottom {
+    transform: rotate(-45deg) translateY(6px) translate(-6px);
+}
+
+
+/*---------------------*/
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+
+  margin: 200px auto;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+    0% { -webkit-transform: perspective(120px) }
+    50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+    100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+    0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+    } 50% {
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+    } 100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+}
+
+/*---------------------*/
+.button-shadow {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 1);
+    border: 1px solid rgba(0, 0, 0, 1);
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.button-shadow:hover {
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
+}
+
+/*---------------------*/
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 50%;
+    word-wrap: break-word;
+    /*background-color: white;*/
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
+    background-color: #fffbeb;
+
+}
+/*---------------------*/

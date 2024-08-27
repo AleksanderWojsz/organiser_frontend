@@ -1,13 +1,15 @@
 <script setup>
 import Task from "@/components/Task.vue";
 import { onMounted, ref, watch } from 'vue';
-import AddPlanPopUp from "@/components/AddPlanPopUp.vue";
+import AddPlanPopUp from "@/components/AddTaskPopUp.vue";
 import axios from "axios";
+import Footer from "@/components/Footer.vue";
 
 const props = defineProps({
     user_id: String,
 })
 
+const show_spinner = ref(false)
 const show_add_task_popup = ref(false)
 const family_members = ref([])
 const whose_tasks = ref("")
@@ -16,6 +18,7 @@ const tasks_data = ref([]);
 
 function addTask(for_whom, from_whom, description, deadline) {
 
+    show_spinner.value = true;
     const new_task = {
         for_whom: for_whom,
         from_whom: from_whom,
@@ -23,18 +26,20 @@ function addTask(for_whom, from_whom, description, deadline) {
         deadline: deadline
     }
 
-    axios.post("https://organiser-backend.onrender.com/add_task", new_task).then(() => {
+    axios.post("http://localhost:8000/add_task", new_task).then(() => {
         return refreshData()
     })
 
     closeAddTaskPopUp();
+    show_spinner.value = false;
 }
 
 function deleteTask(task_id) {
-    console.log(task_id)
-    axios.delete("https://organiser-backend.onrender.com/delete_task/" + task_id).then(() => {
+    show_spinner.value = true;
+    axios.delete("http://localhost:8000/delete_task/" + task_id).then(() => {
         return refreshData()
     })
+    show_spinner.value = false;
 }
 
 function closeAddTaskPopUp() {
@@ -69,24 +74,39 @@ onMounted(async () => {
 })
 
 async function refreshData() {
-    const response = await axios.get("https://organiser-backend.onrender.com/get_full_data_for_user/" + props.user_id)
+    show_spinner.value = true;
+    const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + props.user_id)
     tasks_data.value = response.data
+    show_spinner.value = false;
+    console.log(response.data)
 }
 
 
 </script>
 
 <template>
+<div v-if="show_spinner" class="spinner"></div>
+<div v-else class=" mx-auto mt-[120px]
+    sm:w-[90%]
+    md:w-[90%]
+    lg:w-[80%]
+    xl:w-[70%]
+    2xl:w-[60%]">
 
-    <button class="border-4 border-emerald-700" v-on:click="show_add_task_popup = true">Add task</button>
+    <button class="button-shadow bg-amber-50 hover:bg-amber-100" v-on:click="show_add_task_popup = true">Add task</button>
     <AddPlanPopUp v-bind:family_members="family_members" v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
 
-    <label for="family-members">Whose tasks:</label>
-    <select v-model="whose_tasks" id="family-members">
-        <option v-for="family_member in family_members" v-bind:value="family_member.user_id">{{family_member.user_id === user_id ? "Yours" : family_member.name}}</option>
-    </select>
-
-    <div v-for="task in displayed_tasks">
-        <Task v-bind:user_id="user_id" v-bind:task="task" v-bind:deleteTaskFunction="deleteTask"></Task>
+    <div class="flex space-x-2 items-center my-3">
+        <label for="family-members" class="" >Whose tasks:</label>
+        <select v-model="whose_tasks" id="family-members" class="border rounded p-1">
+            <option v-for="family_member in family_members" v-bind:value="family_member.user_id">{{family_member.user_id === user_id ? "Yours" : family_member.name}}</option>
+        </select>
     </div>
+
+    <div class="space-y-3 mt-6">
+        <div v-for="task in displayed_tasks" >
+            <Task v-bind:display_done_button="whose_tasks === user_id" v-bind:user_id="user_id" v-bind:task="task" v-bind:deleteTaskFunction="deleteTask"></Task>
+        </div>
+    </div>
+</div>
 </template>
