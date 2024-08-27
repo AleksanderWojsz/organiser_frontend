@@ -2,12 +2,16 @@
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
+    screens: {
+      sm: '400px',
+      md: '866px',
+      lg: '966px',
+      xl: '1440px'
+    },
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'sans-serif']
-      },
-      gridTemplateColumns: {
-        '70/30': '70% 28%',
+        sans: ['Montserrat'],
+        handwriting: ['Pacifico'],
       },
     },
   },
@@ -16,4 +20,3 @@ export default {
   },
   plugins: [],
 }
-
