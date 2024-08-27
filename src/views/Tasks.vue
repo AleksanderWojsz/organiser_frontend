@@ -86,14 +86,14 @@ async function refreshData() {
 
 <template>
 <div v-if="show_spinner" class="spinner"></div>
-<div v-else class=" mx-auto mt-12
+<div v-else class=" mx-auto mt-[120px]
     sm:w-[90%]
     md:w-[90%]
     lg:w-[80%]
     xl:w-[70%]
     2xl:w-[60%]">
 
-    <button class="button-shadow bg-green-200 hover:bg-green-400" v-on:click="show_add_task_popup = true">Add task</button>
+    <button class="button-shadow bg-amber-50 hover:bg-amber-100" v-on:click="show_add_task_popup = true">Add task</button>
     <AddPlanPopUp v-bind:family_members="family_members" v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
 
     <div class="flex space-x-2 items-center my-3">
@@ -105,7 +105,7 @@ async function refreshData() {
 
     <div class="space-y-3 mt-6">
         <div v-for="task in displayed_tasks" >
-            <Task v-bind:user_id="user_id" v-bind:task="task" v-bind:deleteTaskFunction="deleteTask"></Task>
+            <Task v-bind:display_done_button="whose_tasks === user_id" v-bind:user_id="user_id" v-bind:task="task" v-bind:deleteTaskFunction="deleteTask"></Task>
         </div>
     </div>
 </div>
