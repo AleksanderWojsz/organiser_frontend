@@ -2,7 +2,6 @@
 
 import {onMounted, ref} from "vue";
 import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
-import router from "@/router/index.js";
 
 const is_logged_in = ref(false)
 const user_id = ref("");
@@ -29,7 +28,6 @@ onMounted(() => {
 
 
 import {watchEffect} from 'vue'
-import NavigationBar from "@/components/NavigationBar.vue";
 import axios from "axios";
 import Footer from "@/components/Footer.vue";
 
@@ -95,12 +93,7 @@ async function accept_invitation(user_id, invitation, user_name, user_email) {
                 <button v-on:click="accept_invitation(user_id, invitation, user_name, user_email)">Accept invitation to family: {{invitation}}</button><br>
             </div>
         </div>
-        <div v-else>
-            <RouterView v-bind:user_id="user_id"></RouterView> <!-- RouterView is where new page is injected -->
-        </div>
     </div>
-
-    <Footer class="mt-24 mb-1"></Footer>
 
 </div>
 

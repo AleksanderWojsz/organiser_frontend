@@ -1,9 +1,5 @@
-<script setup>
-// Na razie nie ma potrzeby dodawania niczego do skryptu
-</script>
-
 <template>
-<div class="footer flex">
+<div class="footer flex mt-10">
     <div class="line line1"></div>
         <a href="https://github.com/AleksanderWojsz?tab=repositories" target="_blank">
             <img src="/src/assets/github-mark.png" class="logo" />
@@ -18,7 +14,6 @@
 <style scoped>
 .footer {
   align-items: center;
-  width: 100%;
 }
 
 .line {

@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Chat from "@/views/Chat.vue";
 import List from "@/views/List.vue";
 import Tasks from "@/views/Tasks.vue";
-import Home from "@/views/Home.vue";
 import Register from "@/views/Register.vue";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import Feed from "@/views/Feed.vue";
@@ -13,8 +12,13 @@ const router = createRouter({
     routes: [
        {
             path: "/",
-            name: 'home',
-            component: Home,
+            name: 'sign-in',
+            component: SignIn,
+        },
+        {
+            path: "/register",
+            name: 'register',
+            component: Register,
         },
         {
             path: "/feed",
@@ -25,23 +29,12 @@ const router = createRouter({
             }
         },
         {
-            path: "/register",
-            name: 'register',
-            component: Register,
-        },
-       {
-            path: "/sign-in",
-            name: 'sign-in',
-            component: SignIn,
-        },
-        {
             path: "/tasks",
             name: 'tasks',
             component: Tasks,
             meta: {
                 requiresAuth: true,
             }
-
         },
         {
             path: "/list",

@@ -5,6 +5,7 @@ import SignIn from "@/views/SignIn.vue";
 import NavigationBar from "@/components/NavigationBar.vue";
 import {onMounted, ref} from "vue";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import Footer from "@/components/Footer.vue";
 
 const is_logged_in = ref(false)
 const user_id = ref("");
@@ -35,17 +36,31 @@ onMounted(() => {
 </script>
 
 <template>
-<div v-if="!loading">
+<div class="container">
 
-    <div v-if="!is_logged_in">
-        <Register></Register>
-        <hr>
-        <SignIn></SignIn>
-    </div>
-    <div v-else>
-        <NavigationBar v-bind:user_id="user_id"></NavigationBar>
-    </div>
-    <RouterView></RouterView>
+    <main>
+        <div v-if="!loading" class="body">
+            <div v-if="is_logged_in">
+                <NavigationBar v-bind:user_id="user_id"></NavigationBar>
+            </div>
+            <RouterView></RouterView>
+        </div>
+    </main>
+    <Footer style="margin-top: auto" class="footer footer"></Footer>
 
 </div>
 </template>
+
+<style scoped>
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+</style>

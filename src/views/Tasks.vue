@@ -4,7 +4,6 @@ import { onMounted, ref, watch } from 'vue';
 import axios from "axios";
 import Task from "@/components/Task.vue";
 import AddPlanPopUp from "@/components/AddTaskPopUp.vue";
-import Footer from "@/components/Footer.vue";
 
 const route = useRoute();
 const user_id = ref(route.query.user_id);

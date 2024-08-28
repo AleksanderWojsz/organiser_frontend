@@ -39,7 +39,7 @@ async function handleSignOut() {
       2xl:w-[62%]">
 
 <!--  logo  -->
-    <RouterLink to="/" class="flex items-center space-x-1">
+    <RouterLink to="/feed" class="flex items-center space-x-1">
         <img src="/src/assets/logo.jpg" class="h-[3rem]" alt="Logo">
         <span class="text-black text-3xl font-handwriting">Organiser</span>
     </RouterLink>
