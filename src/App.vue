@@ -66,6 +66,10 @@ async function accept_invitation(user_id, invitation, user_name, user_email) {
 </script>
 
 <template>
+
+<!--<router-view></router-view>-->
+
+
 <div class="flex flex-col h-screen justify-between">
 
     <div v-if="show_spinner || isLoading" class="spinner"></div>
@@ -86,4 +90,5 @@ async function accept_invitation(user_id, invitation, user_name, user_email) {
     <Footer class="mt-24 mb-1"></Footer>
 
 </div>
+
 </template>
