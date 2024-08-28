@@ -10,7 +10,6 @@ const errorMessage = ref("")
 
 async function register() {
     await signInWithEmailAndPassword(getAuth(), email.value, password.value)
-    await router.push("/feed");
     console.log("Successfully logged in!");
 }
 

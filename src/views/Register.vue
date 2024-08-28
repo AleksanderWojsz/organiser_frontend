@@ -8,13 +8,11 @@ const password = ref("")
 
 async function register() {
     await createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-    await router.push("/feed");
     console.log("Successfully registered!");
 }
 
 async function signInWithGoogle() {
     await signInWithPopup(getAuth(), new GoogleAuthProvider())
-    await router.push("/feed");
 }
 
 </script>
