@@ -2,17 +2,20 @@
 
 import {ref} from "vue";
 import {getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth"
-import router from "@/router/index.js";
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const email = ref("");
 const password = ref("")
 
 async function register() {
     await createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+    await router.push("/feed");
     console.log("Successfully registered!");
 }
 
 async function signInWithGoogle() {
     await signInWithPopup(getAuth(), new GoogleAuthProvider())
+    await router.push("/feed");
 }
 
 </script>

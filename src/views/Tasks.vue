@@ -1,34 +1,33 @@
 <script setup>
-import Task from "@/components/Task.vue";
+import { useRoute } from 'vue-router';
 import { onMounted, ref, watch } from 'vue';
-import AddPlanPopUp from "@/components/AddTaskPopUp.vue";
 import axios from "axios";
+import Task from "@/components/Task.vue";
+import AddPlanPopUp from "@/components/AddTaskPopUp.vue";
 import Footer from "@/components/Footer.vue";
 
-const props = defineProps({
-    user_id: String,
-})
+const route = useRoute();
+const user_id = ref(route.query.user_id);
 
-const show_spinner = ref(false)
-const show_add_task_popup = ref(false)
-const family_members = ref([])
-const whose_tasks = ref("")
-const displayed_tasks = ref([])
+const show_spinner = ref(false);
+const show_add_task_popup = ref(false);
+const family_members = ref([]);
+const whose_tasks = ref("");
+const displayed_tasks = ref([]);
 const tasks_data = ref([]);
 
 function addTask(for_whom, from_whom, description, deadline) {
-
     show_spinner.value = true;
     const new_task = {
         for_whom: for_whom,
         from_whom: from_whom,
         description: description,
         deadline: deadline
-    }
+    };
 
     axios.post("http://localhost:8000/add_task", new_task).then(() => {
-        return refreshData()
-    })
+        return refreshData();
+    });
 
     closeAddTaskPopUp();
     show_spinner.value = false;
@@ -37,8 +36,8 @@ function addTask(for_whom, from_whom, description, deadline) {
 function deleteTask(task_id) {
     show_spinner.value = true;
     axios.delete("http://localhost:8000/delete_task/" + task_id).then(() => {
-        return refreshData()
-    })
+        return refreshData();
+    });
     show_spinner.value = false;
 }
 
@@ -46,40 +45,36 @@ function closeAddTaskPopUp() {
     show_add_task_popup.value = false;
 }
 
-// Update tasks list on a change
 watch([tasks_data, whose_tasks], () => {
-    const member = tasks_data.value.find(item => {return item.user_id === whose_tasks.value})
+    const member = tasks_data.value.find(item => item.user_id === whose_tasks.value);
     if (member) {
         displayed_tasks.value = member.tasks;
     } else {
-        displayed_tasks.value = []
+        displayed_tasks.value = [];
     }
-}, {deep: true});
+}, { deep: true });
 
-// Runs at the start
 onMounted(async () => {
     await refreshData();
 
-        // Update family members list
-        for (const family_member of tasks_data.value) {
-            family_members.value.push({
-                "user_id": family_member.user_id,
-                "name": family_member.name,
-            });
-        }
+    for (const family_member of tasks_data.value) {
+        family_members.value.push({
+            "user_id": family_member.user_id,
+            "name": family_member.name,
+        });
+    }
 
-        // Set default value on family members list
-        whose_tasks.value = props.user_id
-
-})
+    whose_tasks.value = user_id.value;
+});
 
 async function refreshData() {
     show_spinner.value = true;
-    const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + props.user_id)
-    tasks_data.value = response.data
+    const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + user_id.value);
+    tasks_data.value = response.data;
     show_spinner.value = false;
-    console.log(response.data)
+    console.log(response.data);
 }
+
 
 
 </script>

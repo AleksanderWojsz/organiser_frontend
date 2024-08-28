@@ -2,7 +2,9 @@
 
 import {ref} from "vue";
 import {getAuth, signInWithEmailAndPassword} from "firebase/auth"
-import router from "@/router/index.js";
+import { useRouter } from 'vue-router';
+const router = useRouter(); 
+
 const email = ref("");
 const password = ref("")
 const errorMessage = ref("")
@@ -10,6 +12,7 @@ const errorMessage = ref("")
 
 async function register() {
     await signInWithEmailAndPassword(getAuth(), email.value, password.value)
+    await router.push("/feed");
     console.log("Successfully logged in!");
 }
 

@@ -15,7 +15,6 @@ const router = createRouter({
             path: "/",
             name: 'home',
             component: Home,
-
         },
         {
             path: "/feed",
@@ -39,9 +38,6 @@ const router = createRouter({
             path: "/tasks",
             name: 'tasks',
             component: Tasks,
-            props: route => ({ // Sharing props by router
-                user_id: route.query.user_id,
-            }),
             meta: {
                 requiresAuth: true,
             }

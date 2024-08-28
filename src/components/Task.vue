@@ -1,8 +1,8 @@
 <script setup>
 
-const props = defineProps({
+defineProps({
     task: Object,
-    user_id: Number,
+    user_id: String,
     deleteTaskFunction: Function,
     display_done_button: Boolean,
 })
