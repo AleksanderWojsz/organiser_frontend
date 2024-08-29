@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Organiser</string>
+    <string name="title_activity_main">Organiser</string>
+    <string name="package_name">com.AleksanderWojsz.organiser</string>
+    <string name="custom_url_scheme">com.AleksanderWojsz.organiser</string>
+</resources>
