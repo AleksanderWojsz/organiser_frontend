@@ -1,9 +1,15 @@
 <script setup>
 
-import NavigationBar from "@/components/NavigationBar.vue";
+import {watchEffect} from 'vue'
+import axios from "axios";
+import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 const router = useRouter();
+
+const hasFamily = ref(false);
+const invitations = ref([])
+const show_spinner = ref(false)
 
 const is_logged_in = ref(false)
 const user_id = ref("");
@@ -18,33 +24,17 @@ onMounted(() => {
             is_logged_in.value = true;
             user_id.value = user.uid;
             user_email.value = user.email;
-            user_name.value = user.email;
+            user_name.value = user.displayName !== null ? user.displayName : user.email;
         } else { // User is signed out
             is_logged_in.value = false;
-            user_id.value = ""
-            user_email.value = ""
-            user_name.value = ""
         }
     })
 });
-
-
-
-
-import {watchEffect} from 'vue'
-import axios from "axios";
-import {useRouter} from "vue-router";
-
-
-const hasFamily = ref(false);
-const invitations = ref([])
-const show_spinner = ref(false)
 
 // After user is logged in, checks if he is in family and if not, if he has any invitations
 watchEffect(async () => {
     if (is_logged_in.value) {
         show_spinner.value = true;
-        console.log(user_id.value);
         const response = await axios.get("http://localhost:8000/does_user_have_family/" + user_id.value);
         hasFamily.value = response.data;
 

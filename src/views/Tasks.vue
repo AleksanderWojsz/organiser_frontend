@@ -71,7 +71,6 @@ async function refreshData() {
     const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + user_id.value);
     tasks_data.value = response.data;
     show_spinner.value = false;
-    console.log(response.data);
 }
 
 
