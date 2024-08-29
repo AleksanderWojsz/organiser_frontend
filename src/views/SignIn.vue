@@ -13,7 +13,7 @@ const errorMessage = ref("")
 async function sign_in() {
     try {
         await signInWithEmailAndPassword(getAuth(), email.value, password.value)
-        await router.push("/feed");
+        await router.push("/check-family");
     } catch (error) {
         switch (error.code) {
             case 'auth/invalid-email':
@@ -37,12 +37,18 @@ async function sign_in() {
 
 async function signInWithGoogle() {
     await signInWithPopup(getAuth(), new GoogleAuthProvider())
-    await router.push("/feed");
+    await router.push("/check-family");
 }
 
 </script>
 
 <template>
+
+<RouterLink to="/" class="flex items-center space-x-2 m-5">
+    <img style="opacity: 0.9;" src="/src/assets/logo.jpg" class="h-[4rem]" alt="Logo">
+    <span style="font-size: 40px; color: #3a3a3c" class="font-handwriting">Organiser</span>
+</RouterLink>
+
 <div class="login-box shadow-xl p-10 rounded-xl">
     <form class="flex flex-col space-y-3 items-center">
         <p class="text-2xl">Sign in</p>

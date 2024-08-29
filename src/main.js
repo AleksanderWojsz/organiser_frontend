@@ -4,14 +4,6 @@ import './style.css'
 import router from './router/index.js'
 import { createAuth0 } from '@auth0/auth0-vue';
 
-
-
-
-
-
-
-
-
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -28,15 +20,6 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
-
-
-
-
-
-
-
-
-
 
 
 const app = createApp(App);

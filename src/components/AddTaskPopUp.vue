@@ -14,7 +14,7 @@
 </script>
 
 <template>
-<div v-on:click.self="closeAddTaskPopUp" class="popup"> <!-- .self means that it will not run when popup-inner is clicked -->
+<div v-on:click.self="closeAddTaskPopUp" class="popup fade-in-fast"> <!-- .self means that it will not run when popup-inner is clicked -->
     <div class="popup-inner space-y-6">
 
         <textarea placeholder="Description" v-model="description" type="text" id="description" cols="30" class="border rounded-md"></textarea>

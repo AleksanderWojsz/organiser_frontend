@@ -71,7 +71,6 @@ async function refreshData() {
     const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + user_id.value);
     tasks_data.value = response.data;
     show_spinner.value = false;
-    console.log(response.data);
 }
 
 
@@ -79,8 +78,9 @@ async function refreshData() {
 </script>
 
 <template>
+
 <div v-if="show_spinner" class="spinner"></div>
-<div v-else class=" mx-auto mt-[120px]
+<div v-else class=" mx-auto mt-[140px] fade-in
     sm:w-[90%]
     md:w-[90%]
     lg:w-[80%]
@@ -90,7 +90,7 @@ async function refreshData() {
     <button class="button-shadow bg-amber-50 hover:bg-amber-100" v-on:click="show_add_task_popup = true">Add task</button>
     <AddPlanPopUp v-bind:family_members="family_members" v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
 
-    <div class="flex space-x-2 items-center my-3">
+    <div class="flex space-x-3 items-center my-4">
         <label for="family-members" class="" >Whose tasks:</label>
         <select v-model="whose_tasks" id="family-members" class="border rounded p-1">
             <option v-for="family_member in family_members" v-bind:value="family_member.user_id">{{family_member.user_id === user_id ? "Yours" : family_member.name}}</option>

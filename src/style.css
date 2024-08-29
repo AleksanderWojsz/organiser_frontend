@@ -12,6 +12,28 @@ body {
     background-repeat: no-repeat;
 }
 
+/*----------Fade in animation -----------*/
+
+body, .fade-in {
+    animation: fadeInAnimation;
+    animation-duration: 0.8s;
+    animation-iteration-count: 1;
+}
+
+.fade-in-fast {
+    animation: fadeInAnimation;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 /*-------- Hamburger menu -------------*/
 
@@ -105,20 +127,3 @@ body {
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
 }
 
-/*---------------------*/
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 10px;
-    padding: 2rem;
-    max-width: 50%;
-    word-wrap: break-word;
-    /*background-color: white;*/
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
-    background-color: #fffbeb;
-
-}
-/*---------------------*/

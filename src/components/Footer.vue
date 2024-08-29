@@ -1,5 +1,5 @@
 <template>
-<div class="footer flex mt-10">
+<div class="footer">
     <div class="line line1"></div>
         <a href="https://github.com/AleksanderWojsz?tab=repositories" target="_blank">
             <img src="/src/assets/github-mark.png" class="logo" />
@@ -13,6 +13,7 @@
 
 <style scoped>
 .footer {
+  display: flex;
   align-items: center;
 }
 
