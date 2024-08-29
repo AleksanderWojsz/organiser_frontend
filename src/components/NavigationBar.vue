@@ -80,7 +80,7 @@ async function handleSignOut() {
     </div>
 
 </nav>
-<hr>
+
 <InviteToFamilyPopUp v-if="show_popup" v-bind:user_id="user_id" v-bind:closeInviteToFamilyPopUp="closeInviteToFamilyPopUp"></InviteToFamilyPopUp>
 
 </template>

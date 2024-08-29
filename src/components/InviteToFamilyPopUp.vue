@@ -22,7 +22,7 @@ async function addInvitation() {
 </script>
 
 <template>
-<div v-on:click.self="closeInviteToFamilyPopUp" class="popup">
+<div v-on:click.self="closeInviteToFamilyPopUp" class="popup fade-in-fast">
     <div class="popup-inner">
         <input class="mb-6 border rounded-md w-full" v-model="email" placeholder="This person's email" type="email" id="email"><br>
 

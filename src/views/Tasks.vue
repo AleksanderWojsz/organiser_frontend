@@ -83,7 +83,7 @@ async function refreshData() {
 <NavigationBar v-bind:user_id="user_id"></NavigationBar>
 
 <div v-if="show_spinner" class="spinner"></div>
-<div v-else class=" mx-auto mt-[120px]
+<div v-else class=" mx-auto mt-[120px] fade-in
     sm:w-[90%]
     md:w-[90%]
     lg:w-[80%]

@@ -9,7 +9,8 @@ const user_id = ref(route.query.user_id);
 </script>
 
 <template>
-<NavigationBar v-bind:user_id="user_id"></NavigationBar>
-
-  Chat
+    <NavigationBar v-bind:user_id="user_id"></NavigationBar>
+    <div class="flex flex-col items-center mt-[120px]">
+        Chat
+    </div>
 </template>
