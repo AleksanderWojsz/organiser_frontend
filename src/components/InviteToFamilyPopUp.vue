@@ -11,12 +11,12 @@ const props = defineProps({
 const email = ref("")
 
 async function addInvitation() {
+    props.closeInviteToFamilyPopUp()
+
     await axios.post("http://localhost:8000/add_invitation", {
         "who_invited": props.user_id,
         "invited_email": email.value,
     })
-
-    props.closeInviteToFamilyPopUp()
 }
 
 </script>

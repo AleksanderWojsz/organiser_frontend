@@ -4,6 +4,7 @@ import { onMounted, ref, watch } from 'vue';
 import axios from "axios";
 import Task from "@/components/Task.vue";
 import AddPlanPopUp from "@/components/AddTaskPopUp.vue";
+import NavigationBar from "@/components/NavigationBar.vue";
 
 const route = useRoute();
 const user_id = ref(route.query.user_id);
@@ -79,6 +80,8 @@ async function refreshData() {
 </script>
 
 <template>
+<NavigationBar v-bind:user_id="user_id"></NavigationBar>
+
 <div v-if="show_spinner" class="spinner"></div>
 <div v-else class=" mx-auto mt-[120px]
     sm:w-[90%]

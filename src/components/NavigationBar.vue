@@ -31,7 +31,7 @@ async function handleSignOut() {
 
 <template>
 
-<nav style="position: fixed; left: 0; right: 0" class="bg-white rounded-xl mx-auto p-2 m-2 flex justify-between items-center
+<nav style="position: fixed; left: 0; right: 0; top: 0px" class="bg-white rounded-xl mx-auto p-2 m-2 flex justify-between items-center
       sm:w-[92%]
       md:w-[92%]
       lg:w-[82%]
@@ -47,8 +47,8 @@ async function handleSignOut() {
 <!--  subpages  -->
     <div class="hidden md:flex space-x-6">
         <RouterLink v-bind:to="{ path: '/tasks', query: { user_id: user_id } }" class="button-shadow bg-amber-50 hover:bg-amber-50">Tasks</RouterLink>
-        <RouterLink to="/list" class="button-shadow bg-amber-50 hover:bg-amber-50">List</RouterLink>
-        <RouterLink to="/chat" class="button-shadow bg-amber-50 hover:bg-amber-50">Chat</RouterLink>
+        <RouterLink v-bind:to="{ path: '/list', query: { user_id: user_id } }" class="button-shadow bg-amber-50 hover:bg-amber-50">List</RouterLink>
+        <RouterLink v-bind:to="{ path: '/chat', query: { user_id: user_id } }" class="button-shadow bg-amber-50 hover:bg-amber-50">Chat</RouterLink>
     </div>
 
 <!--  logIn, inviteToFamily  -->
@@ -70,8 +70,8 @@ async function handleSignOut() {
         <div class="md:hidden">
             <div v-bind:class="show_or_hide_burger_menu" class="absolute flex-col shadow-xl rounded-md items-center self-end py-8 mt-10 space-y-3 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md">
                 <RouterLink v-bind:to="{ path: '/tasks', query: { user_id: user_id } }"  v-on:click="change_hamburger_menu_state" class="button-shadow bg-amber-50 hover:bg-amber-50">Tasks</RouterLink>
-                <RouterLink to="/list" v-on:click="change_hamburger_menu_state" class="button-shadow bg-amber-50 hover:bg-amber-50">List</RouterLink>
-                <RouterLink to="/chat" v-on:click="change_hamburger_menu_state" class="button-shadow bg-amber-50 hover:bg-amber-50">Chat</RouterLink>
+                <RouterLink v-bind:to="{ path: '/list', query: { user_id: user_id } }" v-on:click="change_hamburger_menu_state" class="button-shadow bg-amber-50 hover:bg-amber-50">List</RouterLink>
+                <RouterLink v-bind:to="{ path: '/chat', query: { user_id: user_id } }" v-on:click="change_hamburger_menu_state" class="button-shadow bg-amber-50 hover:bg-amber-50">Chat</RouterLink>
                 <button v-on:click="show_popup = true; change_hamburger_menu_state()" class="button-shadow bg-amber-300 hover:bg-yellow-500 text-black">Invite to family</button>
                 <button v-on:click="change_hamburger_menu_state(); handleSignOut()" class="button-shadow bg-red-400 hover:bg-red-600">Log out</button>
 

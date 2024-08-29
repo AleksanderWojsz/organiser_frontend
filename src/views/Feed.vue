@@ -1,7 +1,8 @@
 <script setup>
 
+import NavigationBar from "@/components/NavigationBar.vue";
 import {onMounted, ref} from "vue";
-import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 const is_logged_in = ref(false)
 const user_id = ref("");
@@ -27,9 +28,10 @@ onMounted(() => {
 });
 
 
+
+
 import {watchEffect} from 'vue'
 import axios from "axios";
-import Footer from "@/components/Footer.vue";
 
 
 const hasFamily = ref(false);
@@ -83,18 +85,32 @@ async function accept_invitation(user_id, invitation, user_name, user_email) {
 
 <template>
 
-<div class="flex flex-col h-screen justify-between">
-
-    <div v-if="show_spinner" class="spinner"></div>
-    <div v-else>
-        <div v-if="!hasFamily"> <!-- Using show_spinner so this won't appear during loading -->
-            <button v-on:click="create_new_family_and_add_user_to_it(user_id, user_name, user_email)">Create new family</button><br>
-            <div v-if="invitations.length > 0" v-for="invitation in invitations">
-                <button v-on:click="accept_invitation(user_id, invitation, user_name, user_email)">Accept invitation to family: {{invitation}}</button><br>
-            </div>
+<div v-if="show_spinner" class="spinner"></div>
+<div v-else>
+    <div v-if="!hasFamily" class="join-family bg-white p-10 rounded-xl shadow-lg flex flex-col space-y-3 items-center"> <!-- Using show_spinner so this won't appear during loading -->
+        <p>Currently you do not belong to any family.</p>
+        <p>You can either</p>
+        <button class="button-shadow bg-amber-50" v-on:click="create_new_family_and_add_user_to_it(user_id, user_name, user_email)">Create new family</button><br>
+        <p>or wait for an invitation:</p>
+        <div v-if="invitations.length > 0" v-for="invitation in invitations">
+            <button class="button-shadow bg-amber-50" v-on:click="accept_invitation(user_id, invitation, user_name, user_email)">Accept invitation to family: {{invitation}}</button><br>
         </div>
+        <div v-if="invitations.length === 0" class="text-black text-opacity-60"> No invitations </div>
     </div>
-
+    <div v-else>
+        <NavigationBar v-bind:user_id="user_id"></NavigationBar>
+    </div>
 </div>
 
 </template>
+
+<style scoped>
+
+.join-family {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+</style>
