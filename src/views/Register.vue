@@ -11,7 +11,7 @@ const errorMessage = ref("")
 async function register() {
     try {
         await createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-        await router.push("/feed");
+        await router.push("/check-family");
     } catch (error) {
         switch (error.code) {
             case 'auth/invalid-email':
@@ -38,7 +38,7 @@ async function register() {
 
 async function signInWithGoogle() {
     await signInWithPopup(getAuth(), new GoogleAuthProvider())
-    await router.push("/feed");
+    await router.push("/check-family");
 }
 
 </script>

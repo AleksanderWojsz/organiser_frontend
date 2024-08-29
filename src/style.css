@@ -127,20 +127,3 @@ body, .fade-in {
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
 }
 
-/*---------------------*/
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 10px;
-    padding: 2rem;
-    max-width: 50%;
-    word-wrap: break-word;
-    /*background-color: white;*/
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
-    background-color: #fffbeb;
-
-}
-/*---------------------*/
