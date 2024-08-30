@@ -3,7 +3,7 @@
 import {ref} from "vue";
 import {getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup} from "firebase/auth"
 import { useRouter } from 'vue-router';
-const router = useRouter(); 
+const router = useRouter();
 
 const email = ref("");
 const password = ref("")
@@ -82,12 +82,17 @@ async function signInWithGoogle() {
     width: auto;
 }
 
-
 .login-box {
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media (max-height: 700px) {
+    .login-box {
+        top: calc(50vh);
+    }
 }
 
 

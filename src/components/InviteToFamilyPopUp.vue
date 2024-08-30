@@ -13,7 +13,7 @@ const email = ref("")
 async function addInvitation() {
     props.closeInviteToFamilyPopUp()
 
-    await axios.post("http://localhost:8000/add_invitation", {
+    await axios.post("https://organiser-backend.onrender.com/add_invitation", {
         "who_invited": props.user_id,
         "invited_email": email.value,
     })
@@ -23,7 +23,7 @@ async function addInvitation() {
 
 <template>
 <div v-on:click.self="closeInviteToFamilyPopUp" class="popup fade-in-fast">
-    <div class="popup-inner">
+    <div class="popup-inner w-11/12 md:w-6/12">
         <input class="mb-6 border rounded-md w-full" v-model="email" placeholder="This person's email" type="email" id="email"><br>
 
         <div class="flex justify-between">
@@ -55,7 +55,6 @@ async function addInvitation() {
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     max-width: 500px;
-    width: 50%;
 }
 
 </style>

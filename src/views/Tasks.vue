@@ -24,7 +24,7 @@ function addTask(for_whom, from_whom, description, deadline) {
         deadline: deadline
     };
 
-    axios.post("http://localhost:8000/add_task", new_task).then(() => {
+    axios.post("https://organiser-backend.onrender.com/add_task", new_task).then(() => {
         return refreshData();
     });
 
@@ -34,7 +34,7 @@ function addTask(for_whom, from_whom, description, deadline) {
 
 function deleteTask(task_id) {
     show_spinner.value = true;
-    axios.delete("http://localhost:8000/delete_task/" + task_id).then(() => {
+    axios.delete("https://organiser-backend.onrender.com/delete_task/" + task_id).then(() => {
         return refreshData();
     });
     show_spinner.value = false;
@@ -68,7 +68,7 @@ onMounted(async () => {
 
 async function refreshData() {
     show_spinner.value = true;
-    const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + user_id.value);
+    const response = await axios.get("https://organiser-backend.onrender.com/get_full_data_for_user/" + user_id.value);
     tasks_data.value = response.data;
     show_spinner.value = false;
 }

@@ -7,6 +7,9 @@
         <a href="https://linkedin.com" target="_blank">
             <img src="/src/assets/LI-In-Bug.png" class="logo" />
         </a>
+        <a href="src/assets/app-debug.apk" download="organiser.apk">
+            <img src="/src/assets/android.svg" class="logo" />
+        </a>
     <div class="line line2"></div>
 </div>
 </template>
@@ -38,3 +41,5 @@
 }
 
 </style>
+<script setup lang="ts">
+</script>

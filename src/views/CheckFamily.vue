@@ -35,14 +35,14 @@ onMounted(() => {
 watchEffect(async () => {
     if (is_logged_in.value) {
         show_spinner.value = true;
-        const response = await axios.get("http://localhost:8000/does_user_have_family/" + user_id.value);
+        const response = await axios.get("https://organiser-backend.onrender.com/does_user_have_family/" + user_id.value);
         hasFamily.value = response.data;
 
         if (hasFamily.value) {
             // await router.push("/home");
             await router.push({ path: '/tasks', query: { user_id: user_id.value } });
         } else {
-            const response = await axios.get("http://localhost:8000/get_invitations/" + user_email.value);
+            const response = await axios.get("https://organiser-backend.onrender.com/get_invitations/" + user_email.value);
             invitations.value = response.data;
             show_spinner.value = false;
         }
@@ -51,7 +51,7 @@ watchEffect(async () => {
 
 async function create_new_family_and_add_user_to_it(user_id, user_name, user_email) {
     show_spinner.value = true;
-    await axios.post("http://localhost:8000/create_new_family_and_add_user_to_it", {
+    await axios.post("https://organiser-backend.onrender.com/create_new_family_and_add_user_to_it", {
         "user_id": user_id,
         "name": user_name,
         "email": user_email,
@@ -64,7 +64,7 @@ async function create_new_family_and_add_user_to_it(user_id, user_name, user_ema
 
 async function accept_invitation(user_id, invitation, user_name, user_email) {
     show_spinner.value = true;
-    await axios.post("http://localhost:8000/add_user_to_existing_family", {
+    await axios.post("https://organiser-backend.onrender.com/add_user_to_existing_family", {
         "user_id": user_id,
         "family_id": invitation,
         "name": user_name,
