@@ -13,7 +13,7 @@ const email = ref("")
 async function addInvitation() {
     props.closeInviteToFamilyPopUp()
 
-    await axios.post("https://organiser-backend.onrender.com/add_invitation", {
+    await axios.post("https://organiser-backend.vercel.app/add_invitation", {
         "who_invited": props.user_id,
         "invited_email": email.value,
     })

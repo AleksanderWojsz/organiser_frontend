@@ -5,7 +5,7 @@ import router from './router/index.js'
 
 import { initializeApp } from "firebase/app";
 
-// If lost all keys can be found under
+// If lost, all keys can be found under
 // https://console.firebase.google.com/u/0/project/organiser-850a0/settings/general
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_API_KEY,

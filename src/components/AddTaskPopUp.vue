@@ -5,7 +5,7 @@
         addTask: Function,
         closeAddTaskPopUp: Function,
         user_id: String,
-        family_members: [],
+        family_members: Array,
     })
 
     const description = ref("")
