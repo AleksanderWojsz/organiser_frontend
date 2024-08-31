@@ -60,7 +60,10 @@ async function signInWithGoogle() {
     <div class="flex flex-col space-y-3 items-center">
         <div class="line mt-5"></div>
         <div v-on:click="signInWithGoogle" style="cursor: pointer" class="flex flex-row space-x-3 items-center">
-            <p> Sign In With </p>
+            <div>
+                <p> Sign In With </p>
+                <p class="text-[0.7rem] opacity-75 flex flex-col items-center"> (Browser only) </p>
+            </div>
             <img src="/src/assets/google.png" class="logo">
         </div>
         <div class="line mt-5"></div>

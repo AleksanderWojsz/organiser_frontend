@@ -19,4 +19,4 @@ npm run resources
 open the `android` folder in android studio. Then build -> build app bundle -> build apk
 
 if there is an error: `splash.9.png: AAPT: error: file failed to compile.`
-then remove `.9` from the filename
+then remove `.9` from the filename and try again

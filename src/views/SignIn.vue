@@ -44,7 +44,7 @@ async function signInWithGoogle() {
 
 <template>
 
-<RouterLink to="/" class="flex items-center space-x-2 m-5">
+<RouterLink to="/" class="logo-and-text flex items-center space-x-2 m-5">
     <img style="opacity: 0.9;" src="/src/assets/logo.jpg" class="h-[4rem]" alt="Logo">
     <span style="font-size: 40px; color: #3a3a3c" class="font-handwriting">Organiser</span>
 </RouterLink>
@@ -60,7 +60,10 @@ async function signInWithGoogle() {
     <div class="flex flex-col space-y-3 items-center">
         <div class="line mt-5"></div>
         <div v-on:click="signInWithGoogle" style="cursor: pointer" class="flex flex-row space-x-3 items-center">
-            <p> Sign In With </p>
+            <div>
+                <p> Sign In With </p>
+                <p class="text-[0.7rem] opacity-75 flex flex-col items-center"> (Browser only) </p>
+            </div>
             <img src="/src/assets/google.png" class="logo">
         </div>
         <div class="line mt-5"></div>
@@ -93,7 +96,11 @@ async function signInWithGoogle() {
     .login-box {
         top: calc(50vh);
     }
+    .logo-and-text {
+        visibility: hidden;
+    }
 }
+
 
 
 </style>
