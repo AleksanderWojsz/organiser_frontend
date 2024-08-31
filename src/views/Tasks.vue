@@ -24,7 +24,7 @@ function addTask(for_whom, from_whom, description, deadline) {
         deadline: deadline
     };
 
-    axios.post("http://localhost:8000/add_task", new_task).then(() => {
+    axios.post("https://organiser-backend.vercel.app/add_task", new_task).then(() => {
         return refreshData();
     });
 
@@ -34,7 +34,7 @@ function addTask(for_whom, from_whom, description, deadline) {
 
 function deleteTask(task_id) {
     show_spinner.value = true;
-    axios.delete("http://localhost:8000/delete_task/" + task_id).then(() => {
+    axios.delete("https://organiser-backend.vercel.app/delete_task/" + task_id).then(() => {
         return refreshData();
     });
     show_spinner.value = false;
@@ -68,7 +68,7 @@ onMounted(async () => {
 
 async function refreshData() {
     show_spinner.value = true;
-    const response = await axios.get("http://localhost:8000/get_full_data_for_user/" + user_id.value);
+    const response = await axios.get("https://organiser-backend.vercel.app/get_full_data_for_user/" + user_id.value);
     tasks_data.value = response.data;
     show_spinner.value = false;
 }
@@ -80,7 +80,7 @@ async function refreshData() {
 <template>
 
 <div v-if="show_spinner" class="spinner"></div>
-<div v-else class=" mx-auto mt-[140px] fade-in
+<div style="z-index: 1; position: relative" v-else class=" mx-auto mt-[140px] fade-in
     sm:w-[90%]
     md:w-[90%]
     lg:w-[80%]
@@ -88,7 +88,6 @@ async function refreshData() {
     2xl:w-[60%]">
 
     <button class="button-shadow bg-amber-50 hover:bg-amber-100" v-on:click="show_add_task_popup = true">Add task</button>
-    <AddPlanPopUp v-bind:family_members="family_members" v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
 
     <div class="flex space-x-3 items-center my-4">
         <label for="family-members" class="" >Whose tasks:</label>
@@ -103,4 +102,8 @@ async function refreshData() {
         </div>
     </div>
 </div>
+
+<!-- has to be outside div, so its z-index is not bounded by div's z-index=1 -->
+<AddPlanPopUp v-bind:family_members="family_members" v-bind:user_id="user_id" v-bind:addTask="addTask" v-if="show_add_task_popup" v-bind:closeAddTaskPopUp="closeAddTaskPopUp"></AddPlanPopUp><br>
+
 </template>

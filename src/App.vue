@@ -24,8 +24,8 @@ function showNavigationBar() {
 
 
 <template>
-    <div class="allButFooter">
-        <NavigationBar  v-if="showNavigationBar()" v-bind:user_id="user_id"></NavigationBar>
+    <div class="all-but-footer">
+        <NavigationBar v-if="showNavigationBar()" v-bind:user_id="user_id"></NavigationBar>
         <RouterView></RouterView>
     </div>
     <div>
@@ -36,8 +36,15 @@ function showNavigationBar() {
 
 <style scoped>
 
-.allButFooter {
+.all-but-footer {
   min-height: calc(100vh - 85px);
+}
+
+
+@media (max-height: 700px) {
+    .footer {
+        visibility: hidden;
+    }
 }
 
 </style>

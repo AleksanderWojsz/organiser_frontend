@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-<div class="card w-full md:w-1/2">
+<div class="card w-full md:w-1/2 mx-2">
     <div class="pr-14 space-y-2">
         <p> {{task.description}} </p>
         <hr>

@@ -5,7 +5,7 @@
         addTask: Function,
         closeAddTaskPopUp: Function,
         user_id: String,
-        family_members: [],
+        family_members: Array,
     })
 
     const description = ref("")
@@ -41,6 +41,7 @@
 
 .popup {
     position: fixed;
+    z-index: 3;
     top: 0;
     left: 0;
     right: 0;
