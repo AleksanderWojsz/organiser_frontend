@@ -84,7 +84,7 @@ async function accept_invitation(user_id, invitation, user_name, user_email) {
 
 <div v-if="show_spinner" class="spinner"></div>
 <div v-else>
-    <div v-if="!hasFamily" class="fade-in join-family bg-white p-10 rounded-xl shadow-lg flex flex-col space-y-3 items-center"> <!-- Using show_spinner so this won't appear during loading -->
+    <div v-if="!hasFamily" class="fade-in join-family w-[92%] max-w-[500px] bg-white p-10 rounded-xl shadow-lg flex flex-col space-y-3 items-center"> <!-- Using show_spinner so this won't appear during loading -->
         <p>Currently you do not belong to any family.</p>
         <p>You can either</p>
         <button class="button-shadow bg-amber-50" v-on:click="create_new_family_and_add_user_to_it(user_id, user_name, user_email)">Create new family</button><br>
